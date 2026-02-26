@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Castrel AI SRE Product Experience Exchange</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #0a0a0f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .poster {
+    width: 480px;
+    background: linear-gradient(165deg, #0d1117 0%, #161b22 40%, #0d1117 100%);
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 0 80px rgba(56, 132, 255, 0.08), 0 0 160px rgba(56, 132, 255, 0.04);
+  }
+
+  /* Decorative elements */
+  .glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+
+  .glow-orb.blue {
+    width: 300px;
+    height: 300px;
+    background: rgba(56, 132, 255, 0.12);
+    top: -80px;
+    right: -80px;
+  }
+
+  .glow-orb.purple {
+    width: 250px;
+    height: 250px;
+    background: rgba(139, 92, 246, 0.08);
+    bottom: 100px;
+    left: -60px;
+  }
+
+  .glow-orb.teal {
+    width: 200px;
+    height: 200px;
+    background: rgba(45, 212, 191, 0.06);
+    bottom: -40px;
+    right: -40px;
+  }
+
+  /* Grid pattern */
+  .grid-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    padding: 48px 40px 40px;
+  }
+
+  /* Brand */
+  .brand-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(56, 132, 255, 0.1);
+    border: 1px solid rgba(56, 132, 255, 0.2);
+    border-radius: 20px;
+    padding: 6px 16px;
+    margin-bottom: 28px;
+  }
+
+  .brand-dot {
+    width: 8px;
+    height: 8px;
+    background: #3884ff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(56, 132, 255, 0.6);
+  }
+
+  .brand-name {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #3884ff;
+  }
+
+  /* Title */
+  .poster-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.25;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+
+  .poster-title .highlight {
+    background: linear-gradient(135deg, #3884ff, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .poster-subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 36px;
+    line-height: 1.5;
+  }
+
+  /* Info cards */
+  .info-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .info-card {
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .info-icon {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .info-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 4px;
+  }
+
+  .info-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  /* Participants */
+  .participants {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 28px;
+  }
+
+  .participants-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 12px;
+  }
+
+  .participant-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .participant-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(56, 132, 255, 0.08);
+    border: 1px solid rgba(56, 132, 255, 0.15);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .participant-tag .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #3884ff;
+  }
+
+  /* Agenda */
+  .agenda-section {
+    margin-bottom: 32px;
+  }
+
+  .agenda-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 16px;
+  }
+
+  .agenda-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .agenda-item:last-child {
+    border-bottom: none;
+  }
+
+  .agenda-num {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .agenda-item:nth-child(1) .agenda-num { background: linear-gradient(135deg, #3884ff, #5b9aff); }
+  .agenda-item:nth-child(2) .agenda-num { background: linear-gradient(135deg, #6366f1, #818cf8); }
+  .agenda-item:nth-child(3) .agenda-num { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+  .agenda-item:nth-child(4) .agenda-num { background: linear-gradient(135deg, #2dd4bf, #5eead4); }
+  .agenda-item:nth-child(5) .agenda-num { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+
+  .agenda-text {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .agenda-time {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.3);
+    flex-shrink: 0;
+  }
+
+  /* CTA Button */
+  .cta-wrapper {
+    text-align: center;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, #3884ff, #6366f1);
+    border: none;
+    border-radius: 14px;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 24px rgba(56, 132, 255, 0.3);
+    letter-spacing: 0.3px;
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(56, 132, 255, 0.4);
+  }
+
+  .cta-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    margin: 4px 0 28px;
+  }
+</style>
+</head>
+<body>
+
+<div class="poster">
+  <div class="glow-orb blue"></div>
+  <div class="glow-orb purple"></div>
+  <div class="glow-orb teal"></div>
+  <div class="grid-pattern"></div>
+
+  <div class="content">
+    <!-- Brand -->
+    <div class="brand-tag">
+      <div class="brand-dot"></div>
+      <span class="brand-name">Castrel</span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="poster-title">
+      <span class="highlight">AI SRE</span> Product<br>Experience Exchange
+    </h1>
+    <p class="poster-subtitle">Transforming Operations with AI-Powered Intelligence</p>
+
+    <!-- Info -->
+    <div class="info-row">
+      <div class="info-card">
+        <div class="info-icon">📅</div>
+        <div class="info-label">Date</div>
+        <div class="info-value">Mar 6, 2026</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">⏱</div>
+        <div class="info-label">Duration</div>
+        <div class="info-value">1 Hour</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">💻</div>
+        <div class="info-label">Format</div>
+        <div class="info-value">Online</div>
+      </div>
+    </div>
+
+    <!-- Participants -->
+    <div class="participants">
+      <div class="participants-label">Invited Participants</div>
+      <div class="participant-tags">
+        <span class="participant-tag"><span class="dot"></span>CIO</span>
+        <span class="participant-tag"><span class="dot"></span>App O&M Team Leader</span>
+        <span class="participant-tag"><span class="dot"></span>Infra Team Leader</span>
+      </div>
+    </div>
+
+    <!-- Agenda -->
+    <div class="agenda-section">
+      <div class="agenda-label">Agenda</div>
+      <div class="agenda-item">
+        <div class="agenda-num">01</div>
+        <div class="agenda-text">Welcome & Introduction</div>
+        <div class="agenda-time">5 min</div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">02</div>
+        <div class="agenda-text">Core Capabilities Overview</div>
+        <div class="agenda-time">10 min</div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">03</div>
+        <div class="agenda-text">Use Case Sharing</div>
+        <div class="agenda-time">10 min</div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">04</div>
+        <div class="agenda-text">New Feature Demo</div>
+        <div class="agenda-time">10 min</div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">05</div>
+        <div class="agenda-text">Open Discussion & Feedback</div>
+        <div class="agenda-time">15 min</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CTA -->
+    <div class="cta-wrapper">
+      <a class="cta-btn" href="https://teams.live.com/meet/9367799816847?p=j4ViHwXyyL5jh4XTT1" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l5-5m0 0v4m0-4h-4"/><path d="M4 20l5-5"/><path d="M15 4h5v5"/><path d="M4 20h5v-5"/><path d="M20 20h-5v-5"/></svg>
+        Join Meeting
+      </a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
